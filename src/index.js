@@ -36,11 +36,21 @@ const MORSE_TABLE = {
     '----.':  '9',
     '-----':  '0',
 };
+function decode (expr) {
+  let digitChars = [];
+  for (let i = 0; i < expr.length/10; i++) {
+    digitChars.push(expr.slice(i*10, (i + 1)*10));
+  }
+  
+  const morseChars = digitChars.map((char) => char.replace(/\*{10}/g, ' ').replace(/11/g, '-').replace(/10/g, '.').replace(/0/g, ''));
 
-function decode(expr) {
-    // write your solution here
+  let wordsArray = [];
+  morseChars.forEach(char => wordsArray.push(MORSE_TABLE[char] || ' '));
+
+  return wordsArray.join('');
+
 }
 
 module.exports = {
-    decode
-}
+  decode,
+};
